@@ -1,17 +1,19 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
 import Board from "./Board";
 
 const App = () => {
   return (
     <div>
-      <h1>Teste</h1>
-      <Board/>
+      <h1>Joguinho</h1>
+      <Board />
     </div>
   );
 };
 
 ReactDOM.render(
-    <App />,
-  document.getElementById("divtest")
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  document.getElementById("root")
 );

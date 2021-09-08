@@ -1,28 +1,20 @@
-import { useState, useEffect } from "react";
+import React from 'react';
+import Card from "./Card.js";
 
-
-const Board = () => {
-  const [deck, setDeck] = useState("");
-
-
-  useEffect(() => {
-    requestDeck();
-  }, []); //eslint-disable-line react-hooks/exhaustive-deps
-
-  async function requestDeck() {
-    const res = await fetch(
-      `https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1`
-    );
-    const json = await res.json();
-
-    setDeck(json.deck);
-  }
-
-
+function Board () {
+  const romanNumbers = ['I','II','III','IV','V','VI','VII','VIII','IIX','IX','X']
+  
   return (
-    <div className="search-params"></div>
+    romanNumbers.map((f) => {
+      return (
+      <>
+        <Card content= {f} />
+        <Card content= {f} />
+      </>)
+    })
+  )
 
-  );
-};
+}
 
 export default Board;
+
