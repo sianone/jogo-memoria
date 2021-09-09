@@ -1,4 +1,14 @@
+* {
+    box-sizing: border-box;
+}
 
+.container {
+    margin: 0 auto;
+}
+
+body {
+    padding: 10px;
+}
 
 .board {
     display: flex;
