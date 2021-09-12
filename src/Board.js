@@ -97,7 +97,7 @@ const Board = () => {
       cardIndex2.style.backgroundColor = "green";
       cardIndex2.innerHTML = "";
       faceUp[card2] = false;
-    }, 2000);
+    }, 1000);
   }
 
   function checkWin() {

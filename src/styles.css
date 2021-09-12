@@ -6,7 +6,6 @@
   display: grid;
   width: 100%;
   height: 100%;
-
   border: 10px solid red;
   background-color: blue;
 }
@@ -51,9 +50,9 @@
 @media (min-width: 992px) {
   .grid-container {
     grid-template-areas:
-      "header header header header scoreboard scoreboard"
-      "board board header header scoreboard scoreboard"
-      "board board header header scoreboard scoreboard";
+      "header header header header header header"
+      "board board board board board board"
+      "board board board board scoreboard scoreboard";
     max-width: 960px;
     margin: 0 auto;
   }
