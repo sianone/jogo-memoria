@@ -1,33 +1,16 @@
 import React from "react";
 
+const checkFlip = {};
 
-class Card extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state ={
-            faceUp: false,
-        };
-    }
+const Cards = (props) => {
+  const { card, flipped } = props;
+  console.log(props);
 
-    flip(){
-        this.setState({faceup: !this.state.faceUp})
-    }
+  return (
+    <div>
+      <div value></div>
+    </div>
+  );
+};
 
-    render (){
-        let content;
-        if (this.state.faceUp) {
-            content = 'hello'
-        } else {
-            content- 'Back'
-        }
-
-        return (
-            <div className="card"
-            onClick={this.flip.bind(this)}>
-                Testeeeee
-            </div>
-        )
-    }
-}
-
-export default Card;
+export default Cards;

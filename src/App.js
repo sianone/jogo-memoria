@@ -1,12 +1,9 @@
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import ReactDOM from "react-dom";
 import Board from "./Board";
-import SimpleContainer from "./SimpleContainer";
 
 const App = () => {
-  return (
-      <SimpleContainer/>
-  );
+  return <Board />;
 };
 
 ReactDOM.render(

@@ -1,65 +1,60 @@
-
-
-.board {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 100%;
-    align-items: stretch;
-    justify-content: center;
-    border: 10px solid red;
+* {
+  box-sizing: border-box;
 }
 
-.card-row{
-    display: grid;
+.container {
+  display: grid;
+  width: 100%;
+  height: 100%;
 
+  border: 10px solid red;
+  background-color: blue;
 }
 
 .card {
-     background-color: green;
-    width: 100px;
-    height:150px;
-    margin: 10px;
+  background-color: green;
+  width: 100px;
+  height: 150px;
+  margin: 10px;
+  font-weight: 700;
+  font-size: 30px;
 }
 
-@media (min-width: 0) and (max-width: 575px)
-{
-    .container {
-        max-width: 100%;
-    }    
+.item1 {
+  grid-area: header;
+}
+.item2 {
+  grid-area: board;
+}
+.item3 {
+  grid-area: scoreboard;
 }
 
-@media (min-width: 576px) and (max-width: 767px)
-{
-    .container {
-        max-width: 540px;
-    }    
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    "header header header header header header"
+    "board board board board board board"
+    "scoreboard scoreboard scoreboard scoreboard scoreboard scoreboard";
+  grid-gap: 10px;
+  background-color: #2196f3;
+  padding: 10px;
 }
 
-@media (min-width: 768px) and (max-width: 991px)
-{
-    .container {
-        max-width: 720px;
-    }    
+.grid-container > div {
+  background-color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
 }
 
-@media (min-width: 992px) and (max-width: 1199px)
-{
-    .container {
-        max-width: 960px;
-    }    
-}
-
-@media (min-width: 1200px) and (max-width: 1399px)
-{
-    .container {
-        max-width: 1140px;
-    }    
-}
-
-@media (min-width: 1400px)
-{
-    .container {
-        max-width: 1320px;
-    }    
+@media (min-width: 992px) {
+  .grid-container {
+    grid-template-areas:
+      "header header header header scoreboard scoreboard"
+      "board board header header scoreboard scoreboard"
+      "board board header header scoreboard scoreboard";
+    max-width: 960px;
+    margin: 0 auto;
+  }
 }
