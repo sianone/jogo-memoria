@@ -4,10 +4,14 @@
 
 .container {
   display: grid;
-  width: 100%;
+  width: 70%;
   height: 100%;
-  border: 10px solid red;
-  background-color: blue;
+  margin: 0 auto;
+  background-color: grey;
+  border-radius: 10px;
+  padding: 10px 10px 80px 10px;
+  text-align: center;
+  border: 1px solid black;
 }
 
 .card {

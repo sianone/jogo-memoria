@@ -1,13 +1,19 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Board from "./Board";
+import Greetings from "./Greetings";
 
 const App = () => {
   return (
     <Router>
       <Switch>
-        <Board />
+        <Route path="/game">
+          <Board />
+        </Route>
+        <Route path="/">
+          <Greetings />
+        </Route>
       </Switch>
     </Router>
   );
