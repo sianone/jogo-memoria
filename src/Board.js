@@ -3,21 +3,22 @@ import { useState, useEffect } from "react";
 import EndModal from "./EndModal";
 
 //const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-const numbers = ["I", "II", "III"];
+const numbers = ["I", "II", "III", "IV", "V"];
 const numbersCopy = numbers.slice();
 const DECK = numbers.concat(numbersCopy); //array de 20 cartas, 10 pares
 
 const Board = () => {
   const [shuffled, setShuffled] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [round, setRound] = useState("");
   const faceUp = [];
-  let countRound = 0;
+  let countRound = 1;
   let countScore = 0;
   let countFaceUp = 0;
   let cardCache = [];
   let indexCache = [];
 
-  //embaralha 1 vez no render da página.
+  // Embaralha 1 vez no render da página.
   useEffect(() => {
     shuffleDeck(DECK);
   }, []);
@@ -42,8 +43,8 @@ const Board = () => {
     setShuffled(arr);
   }
 
-  // Verifica se a carta está virada para cima.
-  // Só acontece algo, se a carta estiver virada para baixo.
+  // Verifica se a carta está virada ou não.
+  // Só acontece algo, se a carta estiver virada para baixo em seu estado inicial.
   function flipCard(index, shuffled) {
     let selectCard = document.getElementById(index);
 
@@ -52,15 +53,11 @@ const Board = () => {
       faceUp[index]
         ? null
         : ((faceUp[index] = true),
-          countRound++,
           countFaceUp++,
           showCard(selectCard, shuffled),
           checkCards(index, shuffled));
     }
 
-    console.log(countRound);
-    console.log(countScore);
-    console.log(countFaceUp);
     console.log(faceUp[index]);
   }
 
@@ -69,12 +66,16 @@ const Board = () => {
     element.innerHTML = card;
   }
 
-  //verifica os valores das cartas viradas, verificação funciona em pares
+  // Verifica os valores das cartas viradas, verificação funciona em pares
   function checkCards(index, card) {
+    let updateBoard = document.getElementById("roundBoard");
+
     cardCache.push(card);
     indexCache.push(index);
     console.log(cardCache);
     console.log(indexCache);
+
+    console.log("faceup" + countFaceUp);
 
     if (countFaceUp === 2) {
       if (cardCache[0] == cardCache[1]) {
@@ -82,13 +83,22 @@ const Board = () => {
       } else {
         hideCards();
       }
+
+      countRound++;
+
+      console.log("Round" + countRound);
+      console.log("Score" + countScore);
+
       indexCache = [];
       cardCache = [];
       countFaceUp = 0;
       checkWin();
+
+      updateBoard.innerHTML = countRound;
     }
   }
 
+  // Esconde o par de carta selecionado, caso não foi um acerto
   function hideCards() {
     const [card1, card2] = indexCache;
     const cardIndex1 = document.getElementById(card1);
@@ -107,17 +117,16 @@ const Board = () => {
     }, 1000);
   }
 
-  //condição de vitória
+  // Condição de vitória
   function checkWin() {
     if (countScore === numbers.length) {
+      setRound(countRound);
       setShowModal(true);
     }
   }
 
+  // Reinicia o jogo, vira todas as cartas e embaralha
   function resetGame() {
-    let allCards = document.getElementsByClassName("card");
-
-    console.log(allCards);
     for (let i = 0; i < shuffled.length; i++) {
       let card = document.getElementById(i);
 
@@ -131,7 +140,10 @@ const Board = () => {
   return (
     <div className="grid-container">
       <div className="item1">
-        <h1>Jogo da Memória</h1>
+        <h1>Jogo da Memória </h1>
+        <p>
+          Rodadas:<span id="roundBoard">1</span>
+        </p>
       </div>
       <div className="item2">
         {shuffled.map((shuffled, index) => (
@@ -152,7 +164,11 @@ const Board = () => {
       </div>
       {showModal ? (
         <EndModal>
-          <h2>Parabéns! Você completou o jogo com {countRound} rodadas!</h2>
+          <h2>
+            Parabéns! Você completou o jogo com{" "}
+            <span id="roundModal">{round} </span>
+            rodadas!
+          </h2>
           <p>Jogar novamente?</p>
           <div className="buttons">
             <button
@@ -168,7 +184,7 @@ const Board = () => {
                 setShowModal(false);
               }}
             >
-              No
+              Não
             </button>
           </div>
         </EndModal>
