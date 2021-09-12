@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 const modalRoot = document.getElementById("modal");
 
-const StartModal = ({ children }) => {
+const EndModal = ({ children }) => {
   const elRef = useRef(null);
   if (!elRef.current) {
     elRef.current = document.createElement("div");
@@ -17,4 +17,4 @@ const StartModal = ({ children }) => {
   return createPortal(<div>{children}</div>, elRef.current);
 };
 
-export default StartModal;
+export default EndModal;

@@ -1,13 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import EndModal from "./EndModal";
 
 //const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-const numbers = ["I", "II"];
+const numbers = ["I", "II", "III"];
 const numbersCopy = numbers.slice();
 const DECK = numbers.concat(numbersCopy); //array de 20 cartas, 10 pares
 
 const Board = () => {
   const [shuffled, setShuffled] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const faceUp = [];
   let countRound = 0;
   let countScore = 0;
@@ -101,9 +103,14 @@ const Board = () => {
   }
 
   function checkWin() {
-    if (countScore === 2) {
-      alert("Parabens!");
+    if (countScore === numbers.length) {
+      setShowModal(true);
     }
+  }
+
+  function resetGame() {
+    shuffleDeck(DECK);
+    t;
   }
 
   return (
@@ -128,6 +135,30 @@ const Board = () => {
       <div className="item3">
         <h2>scoreboard</h2>
       </div>
+      {showModal ? (
+        <EndModal>
+          <h2>Parabéns! Você completou o jogo com {countRound} rodadas!</h2>
+          <p>Jogar novamente?</p>
+          <div className="buttons">
+            <button
+              onClick={() => {
+                console.log("hooray!");
+                setShowModal(false);
+              }}
+            >
+              Sim!
+            </button>
+            <button
+              onClick={() => {
+                console.log("hooray!");
+                setShowModal(false);
+              }}
+            >
+              No
+            </button>
+          </div>
+        </EndModal>
+      ) : null}
     </div>
   );
 };
