@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 
-const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+//const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
+const numbers = ["I", "II"];
 const numbersCopy = numbers.slice();
 const DECK = numbers.concat(numbersCopy); //array de 20 cartas, 10 pares
 
@@ -12,6 +13,7 @@ const Board = () => {
   let countScore = 0;
   let countFaceUp = 0;
   let cardCache = [];
+  let indexCache = [];
 
   useEffect(() => {
     shuffleDeck(DECK); //embaralha
@@ -63,44 +65,68 @@ const Board = () => {
   }
 
   function checkCards(index, card) {
+    //verifica os valores das cartas viradas, sempre em pares
     cardCache.push(card);
+    indexCache.push(index);
     console.log(cardCache);
+    console.log(indexCache);
 
     if (countFaceUp === 2) {
       if (cardCache[0] == cardCache[1]) {
         countScore++;
-        cardCache = [];
-        countFaceUp = 0;
       } else {
-        cardCache = [];
-        countFaceUp = 0;
+        hideCards();
       }
+      indexCache = [];
+      cardCache = [];
+      countFaceUp = 0;
+      checkWin();
+    }
+  }
+
+  function hideCards() {
+    const [card1, card2] = indexCache;
+    let cardIndex1 = document.getElementById(card1);
+    let cardIndex2 = document.getElementById(card2);
+
+    setTimeout(function () {
+      cardIndex1.style.backgroundColor = "green";
+      cardIndex1.innerHTML = "";
+      faceUp[card1] = false;
+
+      cardIndex2.style.backgroundColor = "green";
+      cardIndex2.innerHTML = "";
+      faceUp[card2] = false;
+    }, 2000);
+  }
+
+  function checkWin() {
+    if (countScore === 2) {
+      alert("Parabens!");
     }
   }
 
   return (
-    <div>
-      <div className="grid-container">
-        <div className="item1">
-          <h1>Jogo da Memória</h1>
-        </div>
-        <div className="item2">
-          {shuffled.map((shuffled, index) => (
-            <button
-              className="card"
-              id={index}
-              key={index}
-              value={index}
-              onClick={(e) => {
-                console.log(shuffled);
-                flipCard(e.target.value, shuffled);
-              }}
-            ></button>
-          ))}
-        </div>
-        <div className="item3">
-          <h2>scoreboard</h2>
-        </div>
+    <div className="grid-container">
+      <div className="item1">
+        <h1>Jogo da Memória</h1>
+      </div>
+      <div className="item2">
+        {shuffled.map((shuffled, index) => (
+          <button
+            className="card"
+            id={index}
+            key={index}
+            value={index}
+            onClick={(e) => {
+              console.log(shuffled);
+              flipCard(e.target.value, shuffled);
+            }}
+          ></button>
+        ))}
+      </div>
+      <div className="item3">
+        <h2>scoreboard</h2>
       </div>
     </div>
   );
