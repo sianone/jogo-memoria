@@ -62,8 +62,8 @@ const Board = () => {
   }
 
   function showCard(element, card) {
-    element.style.backgroundColor = "white";
-    element.innerHTML = card;
+    element.style.backgroundColor = "purple";
+    element.textContent = card;
   }
 
   // Verifica os valores das cartas viradas, verificação funciona em pares
@@ -94,7 +94,7 @@ const Board = () => {
       countFaceUp = 0;
       checkWin();
 
-      updateBoard.innerHTML = countRound;
+      updateBoard.textContent = countRound;
     }
   }
 
@@ -108,11 +108,11 @@ const Board = () => {
 
     setTimeout(function () {
       cardIndex1.style.backgroundColor = "green";
-      cardIndex1.innerHTML = "";
+      cardIndex1.textContent = "֍";
       faceUp[card1] = false;
 
       cardIndex2.style.backgroundColor = "green";
-      cardIndex2.innerHTML = "";
+      cardIndex2.textContent = "֍";
       faceUp[card2] = false;
     }, 1000);
   }
@@ -131,7 +131,7 @@ const Board = () => {
       let card = document.getElementById(i);
 
       card.style.backgroundColor = "green";
-      card.innerHTML = "";
+      card.textContent = "֍";
     }
 
     shuffleDeck(DECK);
@@ -142,7 +142,7 @@ const Board = () => {
       <div className="item1">
         <h1>Jogo da Memória </h1>
         <p>
-          Rodadas:<span id="roundBoard">1</span>
+          Rodadas: <span id="roundBoard">1</span>
         </p>
       </div>
       <div className="item2">
@@ -156,7 +156,9 @@ const Board = () => {
               console.log(shuffled);
               flipCard(e.target.value, shuffled);
             }}
-          ></button>
+          >
+            ֍
+          </button>
         ))}
       </div>
       <div className="item3">
