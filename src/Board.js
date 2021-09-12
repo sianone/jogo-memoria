@@ -17,8 +17,9 @@ const Board = () => {
   let cardCache = [];
   let indexCache = [];
 
+  //embaralha 1 vez no render da página.
   useEffect(() => {
-    shuffleDeck(DECK); //embaralha
+    shuffleDeck(DECK);
   }, []);
 
   function shuffleDeck(array) {
@@ -41,6 +42,8 @@ const Board = () => {
     setShuffled(arr);
   }
 
+  // Verifica se a carta está virada para cima.
+  // Só acontece algo, se a carta estiver virada para baixo.
   function flipCard(index, shuffled) {
     let selectCard = document.getElementById(index);
 
@@ -66,8 +69,8 @@ const Board = () => {
     element.innerHTML = card;
   }
 
+  //verifica os valores das cartas viradas, verificação funciona em pares
   function checkCards(index, card) {
-    //verifica os valores das cartas viradas, sempre em pares
     cardCache.push(card);
     indexCache.push(index);
     console.log(cardCache);
@@ -88,8 +91,10 @@ const Board = () => {
 
   function hideCards() {
     const [card1, card2] = indexCache;
-    let cardIndex1 = document.getElementById(card1);
-    let cardIndex2 = document.getElementById(card2);
+    const cardIndex1 = document.getElementById(card1);
+    const cardIndex2 = document.getElementById(card2);
+
+    console.log(cardIndex1);
 
     setTimeout(function () {
       cardIndex1.style.backgroundColor = "green";
@@ -102,6 +107,7 @@ const Board = () => {
     }, 1000);
   }
 
+  //condição de vitória
   function checkWin() {
     if (countScore === numbers.length) {
       setShowModal(true);
@@ -109,8 +115,17 @@ const Board = () => {
   }
 
   function resetGame() {
+    let allCards = document.getElementsByClassName("card");
+
+    console.log(allCards);
+    for (let i = 0; i < shuffled.length; i++) {
+      let card = document.getElementById(i);
+
+      card.style.backgroundColor = "green";
+      card.innerHTML = "";
+    }
+
     shuffleDeck(DECK);
-    t;
   }
 
   return (
@@ -142,15 +157,14 @@ const Board = () => {
           <div className="buttons">
             <button
               onClick={() => {
-                console.log("hooray!");
                 setShowModal(false);
+                resetGame();
               }}
             >
               Sim!
             </button>
             <button
               onClick={() => {
-                console.log("hooray!");
                 setShowModal(false);
               }}
             >
