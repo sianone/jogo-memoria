@@ -1,5 +1,5 @@
 # jogo-memoria-b
-Jogo da memória utilizando conceitos de Javascript e React
+Jogo da memória utilizando conceitos de Javascript e React JS
 
 
 ## Instruções para rodar o projeto
