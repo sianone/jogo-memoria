@@ -6,7 +6,7 @@ const Greetings = () => {
 
   return (
     <div className="container">
-      <h1>Bem vindo!</h1>
+      <h1>Bem vindo ao Jogo da Memória!</h1>
       <h2>Entre seu nome para continuar</h2>
       <form
         onSubmit={(e) => {
@@ -21,7 +21,7 @@ const Greetings = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <Link to={{ pathname: "/game", state: { name } }}>
+        <Link to={`/game`}>
           <div className="name-button">
             <button>Enviar</button>
           </div>

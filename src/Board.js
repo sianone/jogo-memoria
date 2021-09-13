@@ -1,11 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-
 import EndModal from "./EndModal";
 
 const color = "#ad343e";
-//const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-const numbers = ["I", "II"];
+const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
 const numbersCopy = numbers.slice();
 const DECK = numbers.concat(numbersCopy); //array de 20 cartas, 10 pares
 
@@ -14,17 +12,18 @@ const Board = () => {
   const [showModal, setShowModal] = useState(false);
   const [round, setRound] = useState("");
   const faceUp = [];
+  let cardCache = [];
+  let indexCache = [];
   let countRound = 1;
   let countScore = 0;
   let countFaceUp = 0;
-  let cardCache = [];
-  let indexCache = [];
 
-  // Embaralha 1 vez no render da página.
+  // Embaralha somente 1 vez, assim que a página abre
   useEffect(() => {
     shuffleDeck(DECK);
   }, []);
 
+  // Função embaralha todas as posições do array
   function shuffleDeck(array) {
     var currentIndex = array.length,
       randomIndex;
@@ -40,17 +39,15 @@ const Board = () => {
     }
 
     const arr = array;
-    console.log(arr);
 
     setShuffled(arr);
   }
 
-  // Verifica se a carta está virada ou não.
-  // Só acontece algo, se a carta estiver virada para baixo em seu estado inicial.
+  // Verifica se a carta está virada ou não
+  // Só acontece algo, se a carta estiver virada para baixo em seu estado inicial
   function flipCard(index, shuffled) {
     let selectCard = document.getElementById(index);
 
-    console.log(selectCard);
     {
       faceUp[index]
         ? null
@@ -59,8 +56,6 @@ const Board = () => {
           showCard(selectCard, shuffled),
           checkCards(index, shuffled));
     }
-
-    console.log(faceUp[index]);
   }
 
   function showCard(element, card) {
@@ -68,16 +63,12 @@ const Board = () => {
     element.textContent = card;
   }
 
-  // Verifica os valores das cartas viradas, verificação funciona em pares
+  // Verifação das 2 cartas atualmente escolhidas, se elas sao iguais ou não
   function checkCards(index, card) {
     let updateBoard = document.getElementById("roundBoard");
 
     cardCache.push(card);
     indexCache.push(index);
-    console.log(cardCache);
-    console.log(indexCache);
-
-    console.log("faceup" + countFaceUp);
 
     if (countFaceUp === 2) {
       if (cardCache[0] == cardCache[1]) {
@@ -88,10 +79,6 @@ const Board = () => {
 
       checkWin();
       countRound++;
-
-      console.log("Round" + countRound);
-      console.log("Score" + countScore);
-
       indexCache = [];
       cardCache = [];
       countFaceUp = 0;
@@ -105,8 +92,6 @@ const Board = () => {
     const [card1, card2] = indexCache;
     const cardIndex1 = document.getElementById(card1);
     const cardIndex2 = document.getElementById(card2);
-
-    console.log(cardIndex1);
 
     setTimeout(function () {
       cardIndex1.style.backgroundColor = color;
@@ -127,7 +112,7 @@ const Board = () => {
     }
   }
 
-  // Reinicia o jogo, vira todas as cartas e embaralha
+  // Reinicia o jogo, vira todas as cartas para baixo, reseta o contador da mesa e embaralha
   function resetGame() {
     for (let i = 0; i < shuffled.length; i++) {
       let card = document.getElementById(i);
@@ -136,6 +121,7 @@ const Board = () => {
       card.textContent = "֍";
     }
 
+    document.getElementById("roundBoard").textContent = "1";
     shuffleDeck(DECK);
   }
 
@@ -155,7 +141,6 @@ const Board = () => {
             key={index}
             value={index}
             onClick={(e) => {
-              console.log(shuffled);
               flipCard(e.target.value, shuffled);
             }}
           >
@@ -166,8 +151,8 @@ const Board = () => {
       {showModal ? (
         <EndModal>
           <h2>
-            Parabéns! Você completou o jogo com{" "}
-            <span id="roundModal">{round} </span>
+            Parabéns! Você completou o jogo com
+            <span id="roundModal"> {round} </span>
             rodadas!
           </h2>
           <p>Jogar novamente?</p>
