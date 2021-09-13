@@ -3,7 +3,7 @@ Jogo da memória utilizando conceitos de Javascript e React
 
 ![image](https://raw.githubusercontent.com/sianone/jogo-memoria-b/master/img.jpg)
 
-## Instruções para rodar o projeto
+## Instruções para executar o projeto
 
 * Tenha Git https://git-scm.com/ e Node.js instalados https://nodejs.org/en/download/
 * Use o comando abaixo no prompt de comando:
