@@ -13,16 +13,18 @@ const Greetings = () => {
           e.preventDefault();
         }}
       >
-        <label htmlFor="name">
+        <label htmlFor="login-name">
           Nome
           <input
-            id="name"
+            id="login-name"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <Link to={`/game`}>
-          <button>Enviar</button>
+        <Link to={{ pathname: "/game", state: { name } }}>
+          <div className="name-button">
+            <button>Enviar</button>
+          </div>
         </Link>
       </form>
     </div>

@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 
 import EndModal from "./EndModal";
 
+const color = "#ad343e";
 //const numbers = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
-const numbers = ["I", "II", "III", "IV", "V"];
+const numbers = ["I", "II"];
 const numbersCopy = numbers.slice();
 const DECK = numbers.concat(numbersCopy); //array de 20 cartas, 10 pares
 
@@ -63,7 +64,7 @@ const Board = () => {
   }
 
   function showCard(element, card) {
-    element.style.backgroundColor = "purple";
+    element.style.backgroundColor = "white";
     element.textContent = card;
   }
 
@@ -85,6 +86,7 @@ const Board = () => {
         hideCards();
       }
 
+      checkWin();
       countRound++;
 
       console.log("Round" + countRound);
@@ -93,7 +95,6 @@ const Board = () => {
       indexCache = [];
       cardCache = [];
       countFaceUp = 0;
-      checkWin();
 
       updateBoard.textContent = countRound;
     }
@@ -108,11 +109,11 @@ const Board = () => {
     console.log(cardIndex1);
 
     setTimeout(function () {
-      cardIndex1.style.backgroundColor = "green";
+      cardIndex1.style.backgroundColor = color;
       cardIndex1.textContent = "֍";
       faceUp[card1] = false;
 
-      cardIndex2.style.backgroundColor = "green";
+      cardIndex2.style.backgroundColor = color;
       cardIndex2.textContent = "֍";
       faceUp[card2] = false;
     }, 1000);
@@ -131,7 +132,7 @@ const Board = () => {
     for (let i = 0; i < shuffled.length; i++) {
       let card = document.getElementById(i);
 
-      card.style.backgroundColor = "green";
+      card.style.backgroundColor = color;
       card.textContent = "֍";
     }
 
@@ -141,8 +142,8 @@ const Board = () => {
   return (
     <div className="grid-container">
       <div className="item1">
-        <h1>Jogo da Memória </h1>
-        <p>
+        <h1 className="title">Jogo da Memória </h1>
+        <p className="subtitle-rounds">
           Rodadas: <span id="roundBoard">1</span>
         </p>
       </div>
@@ -162,9 +163,6 @@ const Board = () => {
           </button>
         ))}
       </div>
-      <div className="item3">
-        <h2>scoreboard</h2>
-      </div>
       {showModal ? (
         <EndModal>
           <h2>
@@ -181,13 +179,6 @@ const Board = () => {
               }}
             >
               Sim!
-            </button>
-            <button
-              onClick={() => {
-                setShowModal(false);
-              }}
-            >
-              Não
             </button>
           </div>
         </EndModal>
